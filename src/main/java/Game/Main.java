@@ -4,6 +4,7 @@ import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
+import Commands.Info;
 import Commands.Rules;
 import Commands.Start;
 import net.dv8tion.jda.core.*;
@@ -23,6 +24,8 @@ public class Main extends ListenerAdapter {
         Start s = new Start(waiter);
         builder.addCommand(s);
         builder.addCommand(new Rules());
+        builder.addCommand(new Info());
+
         
         CommandClient client = builder.build();
         

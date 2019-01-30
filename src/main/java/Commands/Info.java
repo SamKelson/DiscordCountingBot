@@ -15,6 +15,7 @@ public class Info extends Command {
 		event.reply("Author:SamKelson\n"
 				+ "Discord:SamSexyBeast#6341\r\n"
 				+ "Version:1.0\r\n"
-				+ "Published:1/29/19\r\n");
+				+ "Published:1/29/19\r\n"
+				+ "Github: https://github.com/SamKelson/DiscordCountingBot");
 	}
 }
