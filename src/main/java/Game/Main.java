@@ -13,7 +13,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class Main extends ListenerAdapter {
     public static void main(String args[]) throws Exception{
 
-    	JDA jda = new JDABuilder(AccountType.BOT).setToken("args[0]").buildBlocking();
+    	JDA jda = new JDABuilder(AccountType.BOT).setToken(args[0]).buildBlocking();
         
     	EventWaiter waiter = new EventWaiter();
     	
