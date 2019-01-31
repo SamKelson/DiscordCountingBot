@@ -8,6 +8,7 @@ public class Start extends Command {
 	private EventWaiter waiter;
 	private boolean isStarted;
 	private int args;
+	private int channel;
 	public Start(EventWaiter waiter) {
 		this.name = "Start";
 		this.aliases= new String[] {"start","begin"};
@@ -28,12 +29,15 @@ public class Start extends Command {
 		synchronized(waiter) {
 			waiter.notify();
           }
+		channel=event.getTextChannel().getPositionRaw();
 	}
 	public void setStart(boolean t) {
 		isStarted = t;
 	}
 	public int getArgs() {
-		return args;
-		
+		return args;	
+	}
+	public int getChannel() {
+		return channel;	
 	}
 }

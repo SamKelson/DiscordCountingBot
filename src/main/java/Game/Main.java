@@ -13,7 +13,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class Main extends ListenerAdapter {
     public static void main(String args[]) throws Exception{
 
-    	JDA jda = new JDABuilder(AccountType.BOT).setToken("NTM4OTA2NjI3ODg2MTUzNzcw.DzJ5wA.CkohbwMUbESZa2yYfdqWsmr-yCQ").buildBlocking();
+    	JDA jda = new JDABuilder(AccountType.BOT).setToken("args[0]").buildBlocking();
         
     	EventWaiter waiter = new EventWaiter();
     	
@@ -34,7 +34,7 @@ public class Main extends ListenerAdapter {
         synchronized(waiter) {
             waiter.wait();
           }
-        Game g = new Game(s.getArgs());
+        Game g = new Game(s.getArgs(), s.getChannel());
         jda.addEventListener(g); 
         synchronized(g) {
 			g.wait();

@@ -10,12 +10,14 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class Game extends ListenerAdapter  {
 	private int i;
-	public Game(int j) {
+	private int channel;
+	public Game(int j,int c) {
 		i = j+1;
+		channel = c;
 	}
 	public void onGuildMessageReceived(GuildMessageReceivedEvent e){
 		MessageHistory history = MessageHistory.getHistoryBefore(e.getChannel(), e.getMessageId()).limit(10).complete(); 
-        if(!e.getMember().getUser().isBot()){
+        if(!e.getMember().getUser().isBot()&&e.getChannel().getPositionRaw()==channel){
         	String[] args = e.getMessage().getContentRaw().split(" ");
         	int num = Integer.parseInt(args[0]);
         	List<Message> name = history.getRetrievedHistory();
