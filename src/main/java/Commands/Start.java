@@ -6,7 +6,6 @@ import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
 public class Start extends Command {
 	private EventWaiter waiter;
-	private boolean isStarted;
 	private int args;
 	private int channel;
 	public Start(EventWaiter waiter) {
@@ -25,14 +24,10 @@ public class Start extends Command {
 			  args = 0;
 			}
 		event.reply("Starting Count Game at: " + args);
-		isStarted=true;
 		synchronized(waiter) {
 			waiter.notify();
           }
 		channel=event.getTextChannel().getPositionRaw();
-	}
-	public void setStart(boolean t) {
-		isStarted = t;
 	}
 	public int getArgs() {
 		return args;	

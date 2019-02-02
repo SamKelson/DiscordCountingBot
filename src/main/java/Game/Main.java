@@ -7,13 +7,16 @@ import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import Commands.Info;
 import Commands.Rules;
 import Commands.Start;
+import Commands.Stop;
 import net.dv8tion.jda.core.*;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class Main extends ListenerAdapter {
+	private static String[] arg1s;
     public static void main(String args[]) throws Exception{
-
+    	arg1s =args;
     	JDA jda = new JDABuilder(AccountType.BOT).setToken(args[0]).buildBlocking();
+    	
         
     	EventWaiter waiter = new EventWaiter();
     	
@@ -25,6 +28,8 @@ public class Main extends ListenerAdapter {
         builder.addCommand(s);
         builder.addCommand(new Rules());
         builder.addCommand(new Info());
+        Stop stop = new Stop(waiter);
+        builder.addCommand(stop);
 
         
         CommandClient client = builder.build();
@@ -36,10 +41,9 @@ public class Main extends ListenerAdapter {
           }
         Game g = new Game(s.getArgs(), s.getChannel());
         jda.addEventListener(g); 
-        synchronized(g) {
-			g.wait();
-			jda.shutdown();
-			Main.main(args);
-          }
+        
     }
+	public static String[] getArgs() {
+		return arg1s;
+	}
 }
