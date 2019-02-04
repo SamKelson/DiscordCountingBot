@@ -23,7 +23,7 @@ public class Start extends Command {
 			catch(Exception e) {
 			  args = 0;
 			}
-		event.reply("Starting Count Game at: " + args);
+		event.reply("Starting Count Game at: \n" + args);
 		synchronized(waiter) {
 			waiter.notify();
           }
