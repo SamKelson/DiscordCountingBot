@@ -18,7 +18,7 @@ public final class Game extends ListenerAdapter    {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent e){
 		int num = 0;
 		MessageHistory history = MessageHistory.getHistoryBefore(e.getChannel(), e.getMessageId()).limit(10).complete(); 
-        if((!e.getMember().getUser().isBot())&&e.getChannel().getPositionRaw()==channel&&!e.getMessage().getContentRaw().equalsIgnoreCase("c%stop")){
+        if((!e.getMessage().getContentRaw().equalsIgnoreCase("c%start"))&&(!e.getMember().getUser().isBot())&&e.getChannel().getPositionRaw()==channel&&!e.getMessage().getContentRaw().equalsIgnoreCase("c%stop")){
         	String[] args = e.getMessage().getContentRaw().split(" ");
         	try {
         		num = Integer.parseInt(args[0]);
