@@ -34,6 +34,6 @@ public class Main extends ListenerAdapter {
         
     }
 	public static String getPrefix() {
-		return "z%";
+		return "c%";
     }
 }
