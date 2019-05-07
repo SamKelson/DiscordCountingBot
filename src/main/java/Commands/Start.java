@@ -19,6 +19,10 @@ public class Start extends Command {
 
 	@Override
 	protected void execute(CommandEvent event) {
+		if(game.getState()){
+			event.reply("Can not start a game while a game is already running");
+			return;
+		}
 		try {
 			args = Integer.parseInt(event.getArgs());
 		}

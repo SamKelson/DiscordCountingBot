@@ -2,18 +2,16 @@ package Game;
 
 import java.util.List;
 
-import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageHistory;
-import net.dv8tion.jda.core.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-//DONT USE A GAME LOPP JUST USE CONDITIONS AND CHANGE THE INDEX EACH TIME IT PASSES CORRECTLY
 public class Game extends ListenerAdapter {
     private int index;
     private MessageChannel channel;
     private boolean state;
+    private String messageID;
 
     public Game() {
         this.index = 0;
@@ -23,26 +21,57 @@ public class Game extends ListenerAdapter {
     public void startGame(MessageChannel channel, int index) {
         this.index = index;
         state = true;
+        this.channel=channel;
     }
 
     public void endGame() {
+        state = false;
     }
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
-        
+        messageID = e.getMessageId();
+        if(getState()&&!e.getAuthor().isBot()&&!e.getMessage().getContentRaw().startsWith(Main.getPrefix())){
+            if(checkNum(e.getMessage())){
+                index++;
+            }
+            else{
+                e.getChannel().sendMessage("Restarting at 0 because: "+e.getMember().getEffectiveName()+" FUCKED IT UP:sob:\n0").queue();
+                index=0;
+            }
+        }
     }
 
-    private void checkMessage(Message msg) {
-        // if(msg.getContentRaw().startsWith(Main.getPrefix())){return;}
+    private boolean checkNum(Message msg) {
+        int num =0;
+        String responce = msg.getContentRaw().split(" ")[0];
+        try{
+            num = Integer.parseInt(responce); 
+        }
+        catch(NumberFormatException e1){
+            return false;
+        }
+        if(msg.getAuthor().equals(getPrevMessage(msg).getAuthor())){
+            return false;
+        }
+        if(num!=index+1){
+            return false;
+        }
+        return true;
     }
 
     private Message getPrevMessage(Message msg) {
-        MessageHistory history = MessageHistory.getHistoryBefore(channel, ((GenericGuildMessageEvent) msg).getMessageId()).limit(5).complete();
+        MessageHistory history = MessageHistory.getHistoryBefore(channel, getMesId()).limit(5).complete();
         List<Message> msgHistory = history.getRetrievedHistory();
         return msgHistory.get(0);
     }
 
-    public int getIndex(){return index;}
+    private String getMesId() {
+        return messageID;
+    }
+
+    public int getIndex() {
+        return index;
+    }
     public MessageChannel getChannel(){return channel;}
     public boolean getState(){return state;}
 }
