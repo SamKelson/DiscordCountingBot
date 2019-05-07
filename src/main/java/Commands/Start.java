@@ -2,37 +2,32 @@ package Commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+
+import Game.Game;
+import net.dv8tion.jda.core.entities.MessageChannel;
 
 public class Start extends Command {
-	private EventWaiter waiter;
 	private int args;
-	private int channel;
-	public Start(EventWaiter waiter) {
+	private MessageChannel channel;
+	private Game game;
+	public Start(Game game) {
 		this.name = "Start";
 		this.aliases= new String[] {"start","begin"};
 		this.help=("Starts the game");
-		this.waiter=waiter;
+		this.game = game;
 	}
 
 	@Override
 	protected void execute(CommandEvent event) {
 		try {
 			args = Integer.parseInt(event.getArgs());
-			}
-			catch(Exception e) {
+		}
+		catch(Exception e) {
 			  args = 0;
-			}
-		event.reply("Starting Count Game at: \n" + args);
-		synchronized(waiter) {
-			waiter.notify();
-          }
-		channel=event.getTextChannel().getPositionRaw();
-	}
-	public int getArgs() {
-		return args;	
-	}
-	public int getChannel() {
-		return channel;	
+		}
+		event.reply("Starting Count Game at: ");
+		event.reply(""+args);
+		channel=event.getChannel();
+		game.startGame(channel, args);
 	}
 }
