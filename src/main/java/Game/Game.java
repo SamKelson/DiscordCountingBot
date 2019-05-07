@@ -9,7 +9,7 @@ import net.dv8tion.jda.core.entities.MessageHistory;
 import net.dv8tion.jda.core.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
+//DONT USE A GAME LOPP JUST USE CONDITIONS AND CHANGE THE INDEX EACH TIME IT PASSES CORRECTLY
 public class Game extends ListenerAdapter {
     private int index;
     private MessageChannel channel;
