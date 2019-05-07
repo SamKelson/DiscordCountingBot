@@ -2,33 +2,24 @@ package Commands;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
-import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
-import Game.Main;
+import Game.Game;
 
 public class Stop extends Command {
-	private EventWaiter waiter;
-	private int channel;
-	private static boolean state;
-	
-	public Stop(EventWaiter waiter) {
+	private Game game;
+	public Stop(Game game) {
 		this.name = "Stop";
 		this.aliases= new String[] {"stop","holt"};
 		this.help=("Stops the game");
-		this.waiter=waiter;
-		state = true;
+		this.game = game;
 	}
 	@Override
 	protected void execute(CommandEvent event) {
-		event.reply("Stopping Game" );
-		channel=event.getTextChannel().getPositionRaw();
-		try {
-			Main.main(Main.getArgs());
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(!game.getState()){
+			event.reply("Can not end a game while a game is not running");
+			return;
 		}
-	}
-	public int getChannel() {
-		return channel;	
+		event.reply("Stopping Game");
+		game.endGame();
 	}
 }
