@@ -5,9 +5,10 @@ import java.util.List;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-public class Game extends ListenerAdapter {
+public class Game extends ListenerAdapter{
     private int index;
     private MessageChannel channel;
     private boolean state;
@@ -26,6 +27,14 @@ public class Game extends ListenerAdapter {
 
     public void endGame() {
         state = false;
+    }
+    
+    public void onGuildMessageDelete(GuildMessageDeleteEvent e){
+        MessageHistory history = MessageHistory.getHistoryAfter(channel, e.getMessageId()).limit(5).complete();
+        List<Message> msgHistory = history.getRetrievedHistory();
+        if(e.getChannel().equals(channel)&&getState()&&msgHistory.isEmpty()){
+            index--;
+        }
     }
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
