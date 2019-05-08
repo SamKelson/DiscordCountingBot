@@ -7,9 +7,7 @@ import Commands.Rules;
 import Commands.Start;
 import Commands.Stop;
 import net.dv8tion.jda.core.*;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-public class Main extends ListenerAdapter {
+public class Main {
     public static void main(String args[]) throws Exception{
     	JDA jda = new JDABuilder(AccountType.BOT).setToken(args[0]).buildBlocking();
 
