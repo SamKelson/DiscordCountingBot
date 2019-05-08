@@ -9,7 +9,7 @@ import Commands.Stop;
 import net.dv8tion.jda.core.*;
 public class Main {
     public static void main(String args[]) throws Exception{
-    	JDA jda = new JDABuilder(AccountType.BOT).setToken("NTQxMDkyODE2Njk3Mjk0ODQ4.XNISsg.rkzN-aDgOWNI42pb22uT4yv9ijY").buildBlocking();
+    	JDA jda = new JDABuilder(AccountType.BOT).setToken(args[0]).buildBlocking();
 
         Game game = new Game();
 
