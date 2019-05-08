@@ -39,7 +39,7 @@ public class Game extends ListenerAdapter{
 
     public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
         messageID = e.getMessageId();
-        if(getState()&&!e.getAuthor().isBot()&&!e.getMessage().getContentRaw().startsWith(Main.getPrefix())){
+        if(!e.getMessage().getContentRaw().startsWith(Main.getPrefix())&&getState()&&!e.getAuthor().isBot()){
             if(checkNum(e.getMessage())){
                 index++;
             }
